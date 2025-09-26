@@ -1,0 +1,65 @@
+html,body{
+  margin:0;
+  background:#220000;
+  color:#eee;
+  font-family:VT323, monospace;
+}
+.desktop{
+  width:800px;
+  margin:20px auto;
+  border:4px solid #990000;
+  background:#111;
+}
+header{
+  background:#660000;
+  padding:4px;
+  font-size:12px;
+  border-bottom:2px solid #330000;
+}
+h1{ margin:0; font-size:12px; color:#ffcccc; text-shadow:1px 1px #000; }
+
+.main{ display:grid; grid-template-columns:140px 1fr }
+.left{ background:#2a0000; padding:4px; border-right:3px ridge #440000 }
+.left h2{ margin:0 0 4px; font-size:11px; color:#ff2222 }
+.contact{ padding:2px; border:1px solid #770000; background:#111; font-size:11px; cursor:pointer }
+.contact .dot{ width:6px; height:6px; display:inline-block; border-radius:50%; background:#33ff33; margin-right:4px }
+
+.chat-panel{ display:flex; flex-direction:column; height:500px; background:#000; padding:4px }
+.messages{ flex:1; overflow:auto; font-size:11px; border:2px dotted #660000; padding:4px; background:#111; overflow: hidden; }
+.message{ margin-bottom:6px; padding:4px; border:1px solid #660000; background:#1a0000 }
+.message.you{ background:#330000 }
+.message.other{ background:#111 }
+.meta{ font-size:9px; color:#ff8888 }
+
+.controls{ display:flex; gap:4px; margin-top:4px }
+.type{ font-family:VT323, monospace; flex:1; padding:3px; background:#000; color:#fff; border:1px solid #770000; font-size:11px }
+.type:focus{font-family:VT323, monospace; outline:none; box-shadow:none; border:1px solid #770000 }
+.btn{ padding:4px 6px; border:2px outset #aa0000; background:#770000; color:#fff; font-size:11px; cursor:pointer; font-family:VT323 }
+.btn.small{ padding:2px 4px; font-size:10px }
+
+.typing{ height:14px; font-size:10px; color:#ff7777; margin-top:2px }
+
+.modal{ position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); background:#000; border:3px solid #990000; padding:4px; width:300px; display:none }
+.modal.open{ display:block }
+.video{ background:#000; height:180px; color:#bbb; display:flex; align-items:center; justify-content:center; font-size:10px }
+
+.incoming{ position:fixed; top:20px; left:50%; transform:translateX(-50%); background:#200; border:3px solid #900; color:#fff; font-size:12px; padding:6px; z-index:100 }
+.incoming button{ margin-left:4px }
+
+#incomingCall {
+  position: fixed;         /* keep it pinned on screen */
+  top: 30%;                /* push it down (adjust % as you like) */
+  left: 50%;               /* center horizontally */
+  transform: translateX(-50%);
+  z-index: 2000;           /* make sure it's above other UI */
+  
+  /* existing styles */
+  background: #111;        /* match your aesthetic */
+  color: #fff;
+  padding: 1rem 1.5rem;
+  font-family: inherit;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+/* Retro scrollbar styling */
+/* Force retro scrollbar always visible when overflowing */
+

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>KONPARA CHAT</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="desktop">
+    <header><h1>KONPARA CHAT</h1></header>
+
+    <div class="main">
+      <div class="left">
+        <h2>Friends</h2>
+        <div class="contacts" id="contacts">
+          <div class="contact" data-user="BaileyLaura"><span class="dot"></span> BaileyLaura</div>
+        </div>
+      </div>
+
+      <div class="chat-panel">
+        <div id="messages" class="messages"></div>
+        <div id="typingIndicator" class="typing"></div>
+
+        <div class="controls">
+          <input id="input" class="type" placeholder="Type here..." autocomplete="off" />
+          <button id="send" class="btn">SEND</button>
+          <button id="callBtn" class="btn">CALL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call Modal (grainy fake call) -->
+  <div class="modal" id="modal">
+    <div class="modal-head">
+      <strong>Call with <span id="pmWith">...</span></strong>
+      <button id="closeModal" class="btn small">X</button>
+    </div>
+    <div class="modal-body">
+      <div class="video"></div>
+    </div>
+  </div>
+
+  <!-- Incoming Call Popup -->
+  <div class="incoming" id="incomingCall" style="display:none">
+    <div id="incomingText"></div>
+    <button id="acceptCall" class="btn small">YES</button>
+    <button id="declineCall" class="btn small">NO</button>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>

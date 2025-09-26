@@ -1,0 +1,16 @@
+{
+  "name": "konpara-chat",
+  "version": "1.0.0",
+  "description": "Retro red/black chat for film — Node + Socket.IO",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.2"
+  }
+}
