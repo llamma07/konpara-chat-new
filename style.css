@@ -16,6 +16,20 @@ header{
   font-size:12px;
   border-bottom:2px solid #330000;
 }
+/* new stuff */
+.message img {
+  display: block;
+  max-width: 200px;
+  max-height: 200px;
+  background: #f0f0f0;
+  border-radius: 4px;
+}
+
+/* Add a min-height to messages to prevent jumping */
+.message {
+  min-height: 1.2em;
+}
+/* new stuff */
 h1{ margin:0; font-size:12px; color:#ffcccc; text-shadow:1px 1px #000; }
 
 .main{ display:grid; grid-template-columns:140px 1fr }
