@@ -41,7 +41,32 @@
     div.className = "message " + (isYou ? "you" : "other");
     div.innerHTML = `<div class="meta">${displayName}</div>${msg.html || escapeHtml(msg.text || "")}`;
     messagesEl.appendChild(div);
-    messagesEl.scrollTop = messagesEl.scrollHeight;
+    
+    // Fix for images: wait for images to load before scrolling
+    const images = div.getElementsByTagName('img');
+    if (images.length > 0) {
+      let imagesLoaded = 0;
+      const totalImages = images.length;
+      
+      const checkAllImagesLoaded = () => {
+        imagesLoaded++;
+        if (imagesLoaded === totalImages) {
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+        }
+      };
+      
+      for (const img of images) {
+        if (img.complete) {
+          checkAllImagesLoaded();
+        } else {
+          img.addEventListener('load', checkAllImagesLoaded);
+          img.addEventListener('error', checkAllImagesLoaded); // Also handle errors
+        }
+      }
+    } else {
+      // No images, scroll immediately
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
   }
 
   function sendMessage(text, htmlOverride = null) {
