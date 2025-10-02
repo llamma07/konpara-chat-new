@@ -6,6 +6,9 @@
   let username = new URLSearchParams(window.location.search).get("name") || prompt("Enter username (You or BaileyLaura):") || "Guest";
   username = username.trim();
 
+  // Track messages we've already added locally to avoid duplicates
+  const addedMessages = new Set();
+
   // wait for socket connect to register
   socket.on("connect", () => {
     console.log("socket connected:", socket.id);
@@ -33,7 +36,17 @@
     return String(s).replace(/[&<>"']/g, (m) => ({ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;" })[m]);
   }
 
-  function addMessage(msg) {
+  function addMessage(msg, skipDupeCheck = false) {
+    // Create unique message ID
+    const msgId = `${msg.user}-${msg.ts || Date.now()}-${(msg.text || msg.html || '').substring(0, 20)}`;
+    
+    // Skip if we've already added this message (unless explicitly told not to check)
+    if (!skipDupeCheck && addedMessages.has(msgId)) {
+      console.log("Skipping duplicate message:", msgId);
+      return;
+    }
+    addedMessages.add(msgId);
+
     const div = document.createElement("div");
     const isYou = (msg.user === username);
     let displayName = msg.user;
@@ -72,7 +85,9 @@
   function sendMessage(text, htmlOverride = null) {
     if (!text && !htmlOverride) return;
     const payload = { user: username, text, html: htmlOverride, ts: Date.now() };
+    console.log("Sending message:", payload.user, "Has HTML:", !!payload.html);
     socket.emit("chatMessage", payload);
+    // Add locally immediately
     addMessage(payload);
   }
 
@@ -93,7 +108,8 @@
 
   // receive chat messages
   socket.on("chatMessage", (msg) => {
-    if (msg.user === username) return;
+    console.log("Received message:", msg.user, "Has HTML:", !!msg.html);
+    // addMessage will handle duplicate detection
     addMessage(msg);
   });
 
