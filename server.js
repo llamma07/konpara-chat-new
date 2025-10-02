@@ -2,8 +2,9 @@ const express = require("express");
 const path = require("path");
 const app = express();
 const http = require("http").createServer(app);
-const io = require("socket.io")(http);
-
+const io = require("socket.io")(http, {
+  maxHttpBufferSize: 5e6  // Increase buffer size to 5MB for images
+});
 const PORT = process.env.PORT || 3000;
 
 // Serve static files from root (current folder)
@@ -24,6 +25,8 @@ io.on("connection", (socket) => {
   });
 
   socket.on("chatMessage", (msg) => {
+    console.log("Broadcasting message from:", msg.user, "Has HTML:", !!msg.html);
+    // Broadcast to ALL clients (including sender for confirmation)
     io.emit("chatMessage", msg);
   });
 
@@ -34,7 +37,7 @@ io.on("connection", (socket) => {
   socket.on("callRequest", (data) => {
     io.sockets.sockets.forEach((s) => {
       if (s.username === data.to)
-        s.emit("incomingCall", { ...data, fromName: data.from });
+        s.emit("incomingCall", { ...data, fromName: data.from, callerSocketId: socket.id });
     });
   });
 
